@@ -7,6 +7,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
 }
 
 * {
@@ -22,15 +23,141 @@ body {
 main {
   width: min(100% - 2rem, 960px);
   margin: 0 auto;
-  padding: 4rem 0;
+  padding: 4rem 0 2rem;
+}
+
+header {
+  margin-bottom: 2.5rem;
+}
+
+.sobretitulo {
+  color: #60a5fa;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
 }
 
 h1 {
+  margin: 0.5rem 0;
   font-size: clamp(2rem, 5vw, 3rem);
   letter-spacing: -0.04em;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.25rem;
 }
 
 p {
   color: #9ca3af;
   line-height: 1.7;
+}
+
+.painel {
+  padding: 1.5rem;
+  border: 1px solid #374151;
+  border-radius: 1rem;
+  background: #1f2937;
+}
+
+.cabecalho-painel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cabecalho-painel p {
+  margin-bottom: 0;
+}
+
+.indicador {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.indicador-carregando {
+  color: #fde68a;
+  background: #78350f;
+}
+
+.indicador-conectada {
+  color: #bbf7d0;
+  background: #14532d;
+}
+
+.indicador-erro {
+  color: #fecaca;
+  background: #7f1d1d;
+}
+
+.detalhes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.detalhes div {
+  min-width: 0;
+}
+
+.detalhes dt {
+  margin-bottom: 0.35rem;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.detalhes dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.mensagem-erro {
+  margin: 1.5rem 0;
+  color: #fecaca;
+}
+
+button {
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  color: #fff;
+  background: #2563eb;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+button:focus-visible {
+  outline: 2px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-top: 2rem;
+  }
+
+  .painel {
+    padding: 1rem;
+  }
 }
