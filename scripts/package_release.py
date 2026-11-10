@@ -1,6 +1,7 @@
 """Build and package a portable source release, excluding runtime data and secrets."""
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -29,6 +30,64 @@ EXCLUDED = {
     "data",
     "release",
     ".mypy_cache",
+    ".ssh",
+    ".aws",
+    ".azure",
+    ".gcloud",
+    ".auth",
+}
+
+# Keep release files aligned with the sensitive-path rules in .gitignore.
+PRIVATE_FILES = (
+    "*.db-*",
+    "*.sqlite-*",
+    "*.sqlite3-*",
+    "*.dump",
+    "*.backup",
+    "*.bak",
+    "*.sql.gz",
+    "*.sql.zip",
+    "*.key",
+    "*.pem",
+    "*.p12",
+    "*.pfx",
+    "*.jks",
+    "*.keystore",
+    "*.kdbx",
+    "*.agekey",
+    "*.private.asc",
+    "id_rsa",
+    "id_ed25519",
+    "credentials*.json",
+    "*.credentials.json",
+    "service-account*.json",
+    "service_account*.json",
+    "*-service-account.json",
+    "firebase-adminsdk*.json",
+    "client_secret*.json",
+    "oauth-token*.json",
+    "oauth_token*.json",
+    ".netrc",
+    "_netrc",
+    ".npmrc",
+    ".pypirc",
+    "storage-state*.json",
+    "storage_state*.json",
+    "auth-state*.json",
+    "auth_state*.json",
+    "browser-state*.json",
+    "cookies*.json",
+    "cookies*.txt",
+    "*.session",
+    "*.har",
+    "*.trace",
+    "trace*.zip",
+)
+PRIVATE_DIRECTORIES = {
+    "backend/secrets",
+    "backend/credentials",
+    "frontend/secrets",
+    "docs/verification",
 }
 
 
@@ -39,6 +98,8 @@ def sources():
             for name in subdirectories
             if name not in EXCLUDED
             and not name.endswith(".egg-info")
+            and (Path(directory) / name).relative_to(ROOT).as_posix()
+            not in PRIVATE_DIRECTORIES
             and (Path(directory) != ROOT or name in DIRECTORIES)
         )
         for name in sorted(filenames):
@@ -49,6 +110,10 @@ def sources():
             if path.is_symlink() or not path.is_file():
                 continue
             if name.startswith(".env") and not name.endswith(".example"):
+                continue
+            if any(
+                fnmatch.fnmatchcase(name.lower(), pattern) for pattern in PRIVATE_FILES
+            ):
                 continue
             if path.suffix in {
                 ".db",

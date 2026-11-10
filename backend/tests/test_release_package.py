@@ -20,6 +20,14 @@ def test_release_excludes_local_secrets_and_is_reproducible(tmp_path, monkeypatc
         "README.md": "Install from source",
         "backend/.env.example": "SECRET_NAME=",
         "backend/.env": "PRIVATE_SECRET=do-not-package",
+        "backend/service-account-prod.json": "do-not-package",
+        "backend/credentials-client.json": "do-not-package",
+        "backend/tls/private.key": "do-not-package",
+        "backend/secrets/config.json": "do-not-package",
+        "frontend/.auth/browser.json": "do-not-package",
+        "frontend/storage-state.json": "do-not-package",
+        "frontend/recording.har": "do-not-package",
+        "docs/verification/login.html": "do-not-package",
         "backend/.venv/credentials.txt": "do-not-package",
         "data/user.db": "do-not-package",
         ".git/config": "do-not-package",
@@ -36,6 +44,8 @@ def test_release_excludes_local_secrets_and_is_reproducible(tmp_path, monkeypatc
         names = archive.namelist()
         assert "backend/.env.example" in names
         assert "backend/.env" not in names
+        assert "backend/service-account-prod.json" not in names
+        assert "frontend/storage-state.json" not in names
         assert not any(name.startswith(("data/", ".git/")) or ".venv" in name for name in names)
         assert all(b"do-not-package" not in archive.read(name) for name in names)
         assert "RELEASE-MANIFEST.json" in names
