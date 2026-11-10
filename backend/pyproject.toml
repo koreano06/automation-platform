@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "automation-platform-backend"
-version = "0.1.0"
+version = "0.3.0"
 description = "API backend da Automation Platform"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
@@ -12,11 +12,16 @@ dependencies = [
     "fastapi>=0.115,<1.0",
     "uvicorn[standard]>=0.34,<1.0",
     "pydantic-settings>=2.7,<3.0",
+    "sqlalchemy>=2.0,<3.0",
+    "alembic>=1.14,<2.0",
+    "httpx>=0.28,<1.0",
+    "pillow>=11.0,<13.0",
 ]
 
 [project.optional-dependencies]
+runner = ["playwright>=1.50,<2.0", "opencv-python-headless>=4.10,<5.0"]
+desktop = ["pyautogui>=0.9.54,<1.0", "pygetwindow>=0.0.9,<1.0", "opencv-python-headless>=4.10,<5.0"]
 dev = [
-    "httpx>=0.28,<1.0",
     "pytest>=8.3,<9.0",
     "ruff>=0.9,<1.0",
 ]
@@ -32,3 +37,6 @@ addopts = "-ra"
 [tool.ruff]
 line-length = 100
 target-version = "py313"
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Header"]

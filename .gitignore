@@ -42,3 +42,75 @@ test-results/
 
 # Python package build metadata
 *.egg-info/
+
+# Local runtime data: databases, employee data, backups, screenshots and process state
+/data/
+
+# Databases and SQLite sidecars, including custom DATABASE_URL paths
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.dump
+*.backup
+*.bak
+*.sql.gz
+*.sql.zip
+
+# Private keys, signing identities and local credential stores
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.kdbx
+*.agekey
+*.private.asc
+id_rsa
+id_ed25519
+.ssh/
+.aws/
+.azure/
+.gcloud/
+.config/gcloud/
+/secrets/
+/.secrets/
+/credentials/
+/backend/secrets/
+/backend/credentials/
+/frontend/secrets/
+credentials*.json
+*.credentials.json
+service-account*.json
+service_account*.json
+*-service-account.json
+firebase-adminsdk*.json
+client_secret*.json
+oauth-token*.json
+oauth_token*.json
+.netrc
+_netrc
+.npmrc
+.pypirc
+
+# Browser sessions, cookies and network recordings
+.auth/
+storage-state*.json
+storage_state*.json
+auth-state*.json
+auth_state*.json
+browser-state*.json
+cookies*.json
+cookies*.txt
+*.session
+*.har
+*.trace
+trace*.zip
+
+# Tools, generated delivery archives and verification artifacts
+.tools/
+release/
+/docs/verification/
