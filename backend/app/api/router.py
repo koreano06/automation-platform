@@ -1,6 +1,16 @@
 from fastapi import APIRouter
 
-from app.api.endpoints.health import router as health_router
+from app.api.endpoints import (
+    assets,
+    auth,
+    callbacks,
+    health,
+    operations,
+    platforms,
+    provisioning,
+    studio,
+)
 
 api_router = APIRouter()
-api_router.include_router(health_router)
+for module in [health, auth, platforms, provisioning, callbacks, operations, assets, studio]:
+    api_router.include_router(module.router)

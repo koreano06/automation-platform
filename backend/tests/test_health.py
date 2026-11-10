@@ -5,7 +5,8 @@ def test_health_returns_ok(client):
     body = response.json()
     assert body["status"] == "ok"
     assert body["app_name"] == "Automation Platform API"
-    assert body["version"] == "0.1.0"
+    assert body["version"] == "0.3.0"
+    assert "step_tests" in body["capabilities"]
     assert body["environment"] == "development"
 
 

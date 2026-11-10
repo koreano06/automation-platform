@@ -42,3 +42,18 @@ test-results/
 
 # Python package build metadata
 *.egg-info/
+
+# Local SQLite databases
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+.tools/
+data/backups/
+data/reference-images/
+data/dev-processes.json
+data/artifacts/
+release/
+docs/verification/*.png
+*.sqlite
+*.sqlite3
